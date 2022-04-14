@@ -15,9 +15,9 @@ export default function Welcome() {
   const handleStart = () => {
     if (username !== "") {
       if (roomId !== "") {
-        navigate("/game", { state: { roomId, username, action: "join" } });
+        navigate("waiting", { state: { roomId, username, action: "join" } });
       } else {
-        navigate("/game", {
+        navigate("/waiting", {
           state: { username, action: "create" },
         });
       }

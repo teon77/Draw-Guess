@@ -21,16 +21,40 @@ io.on("connection", (socket) => {
   console.log("New client connected");
 
   socket.on("join_or_create", ({ username, id, action }) => {
-    if (username !== "" && action !== "") {
-      if (action === "create") {
-        const createRoom = uuidv4();
-        socket.join(createRoom);
-        socket.emit("created_success", { room: createRoom });
-      } else if (action === "join") {
-        console.log("join: " + id);
-        socket.join(id);
-        socket.emit("joined_success", { joinedId: id });
+    try {
+      if (username !== "" && action !== "") {
+        if (action === "create") {
+          const createRoom = uuidv4();
+          socket.join(createRoom);
+          socket.emit("created_success", { room: createRoom });
+        } else if (action === "join") {
+          // check if room exists
+          let rooms = io.sockets.adapter.rooms;
+
+          if (rooms.has(id)) {
+            let roomSize = rooms.get(id).size;
+            if (roomSize < 2) {
+              socket.join(id);
+              io.to(id).emit("joined_success", { joinedId: id });
+            } else {
+              socket.emit("fail", {
+                joinedId: id,
+                msg: "Could`nt join the room because the Room is full!",
+              });
+            }
+          } else {
+            socket.emit("fail", {
+              joinedId: id,
+              msg: "Could`nt join the room because the room does not exist!",
+            });
+          }
+        }
       }
+    } catch (error) {
+      socket.emit("fail", {
+        joinedId: id,
+        msg: "Could`nt create a new Room",
+      });
     }
   });
 
@@ -38,7 +62,7 @@ io.on("connection", (socket) => {
     console.log(
       "User: " + username + " sent word: " + word + " to room: " + room
     );
-    socket.to(room).emit("receive", { word, username });
+    io.in(room).emit("receive", { word, username });
   });
 
   socket.on("disconnect", () => {
