@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Stage, Layer, Line, Text } from "react-konva";
+import React, { useState, useRef } from "react";
+import { Stage, Layer, Line } from "react-konva";
 
 export default function Board({ setDrawing }) {
   const [lines, setLines] = useState([]);
@@ -44,8 +44,8 @@ export default function Board({ setDrawing }) {
   return (
     <>
       <Stage
-        width={350}
-        height={350}
+        width={300}
+        height={300}
         container=".drawing"
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}

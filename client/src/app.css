@@ -67,7 +67,7 @@ body {
     width:100vw;
 }
 .information {
-    height: 45vh;
+    height: 20vh;
 }
 .information_bar {
     margin-top: 2vh;
@@ -89,4 +89,17 @@ body {
     border: none;
     border-radius: 2px;
     margin-left: 2vh;
+}
+.explain {
+    display: grid;
+    place-items: center;
+    color: rgb(227, 234, 255);
+}
+
+.explain button {
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+    font-size: larger;
+    
 }

@@ -30,6 +30,7 @@
     border: none;
     border-radius: 2px;
     margin-left: 2vh;
+    margin-right: 2vh;
 }
 
 .drawing_area {
@@ -49,6 +50,10 @@
     border: 3px solid #0091ff;
     background-color: transparent;
     color: rgb(227, 234, 255);
-    padding: 3px;
+    padding: 2px;
     border-radius: 2px;
+}
+.end_game {
+    color: rgb(227, 234, 255);
+    margin-bottom: 20vh;
 }

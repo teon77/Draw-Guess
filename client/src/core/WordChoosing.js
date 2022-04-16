@@ -24,10 +24,10 @@ export default function WordChoosing({ setWord }) {
       <div className="explain">
         <h1>Choose a word to draw</h1>
         <p>
-          You get to choose between 3 random words. <br />
-          an "Easy" word will give you 1 point, <br />
+          Remember, an "Easy" word will give you 1 point, <br />
           a "Medium" word will give you 3 points, <br />
-          and a "Hard" word will give you 5 points.
+          and a "Hard" word will give you 5 points. <br />
+          Click on a word to choose it.
         </p>
       </div>
       <div className="word_choosing">

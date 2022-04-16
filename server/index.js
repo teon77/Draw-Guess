@@ -57,12 +57,22 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("start_game", ({ roomId }) => {
+    if (rooms[roomId]) {
+      io.in(roomId).emit("start_game");
+    }
+  });
+
   socket.on("submit_draw", ({ roomId, drawing }) => {
-    io.to(roomId).emit("submit_draw", { drawing });
+    if (rooms[roomId]) {
+      io.to(roomId).emit("submit_draw", { drawing });
+    }
   });
 
   socket.on("submit_word", ({ roomId, word }) => {
-    rooms[roomId]["word"] = word;
+    if (rooms[roomId]) {
+      rooms[roomId]["word"] = word;
+    }
   });
 
   socket.on("submit_answer", ({ roomId, answer }) => {
@@ -121,12 +131,14 @@ io.on("connection", (socket) => {
       return;
     }
     for (roomId in rooms) {
-      if (rooms[roomId]["users"].length === 0) {
+      let user = rooms[roomId]["users"].find(
+        (user) => user["id"] === socket.id
+      );
+      if (user) {
         delete rooms[roomId];
         continue;
       }
     }
-    console.log(`Client disconnected, socketId: ${socket.id}`);
   });
 });
 
