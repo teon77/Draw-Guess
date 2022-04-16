@@ -13,33 +13,17 @@ app.use(cors());
 let rooms = {};
 
 const createUser = (id, username, roomId) => {
-  const user = { username: username, id, turns: 0 };
+  const user = { username: username, id };
   rooms[roomId]["users"].push(user);
-  return user;
 };
 
-const createRoom = (roomId) => {
+const createRoom = (roomId, socketId) => {
   rooms[roomId] = {
     users: [],
     word: null,
-    artistId: null,
     score: 0,
+    firstDrawer: socketId,
   };
-};
-
-const getArtistId = (roomId) => {
-  // Get the user with the least turns
-  const users = rooms[roomId]["users"];
-  let turns = users[0]["turns"];
-  let index = 0;
-  for (let i = 1; i < users.length; i++) {
-    if (users[i]["turns"] < turns) {
-      turns = users[i]["turns"];
-      index = i;
-    }
-  }
-  rooms[roomId]["users"][index]["turns"] += 1;
-  return rooms[roomId]["users"][index]["id"];
 };
 
 const server = http.createServer(app);
@@ -51,45 +35,67 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(socket.id);
-
   socket.on("game_data", ({ roomId }) => {
     let playersArray = [];
-    for (user of rooms[roomId]["users"]) {
-      playersArray.push(user["username"]);
+    if (rooms[roomId]) {
+      for (user of rooms[roomId]["users"]) {
+        playersArray.push(user["username"]);
+      }
+      io.in(roomId).emit("data", {
+        roomId,
+        playersArray,
+        score: rooms[roomId]["score"],
+      });
     }
-    io.in(roomId).emit("data", {
-      roomId,
-      playersArray,
-      score: rooms[roomId]["score"],
-    });
   });
 
+  // sending only the first player an event to take turns
   socket.on("turn", ({ roomId }) => {
-    const artistId = getArtistId(roomId);
-    io.in(roomId).emit("turn", { artistId });
+    if (rooms[roomId]) {
+      let artistId = rooms[roomId]["firstDrawer"];
+      io.to(artistId).emit("turn", { first: true });
+    }
   });
 
-  socket.on("GUESS", ({ roomId, guess }) => {
-    // Can also be moved to client as the client is aware of the word
-    const index = rooms[roomId]["users"].findIndex(
-      (user) => user.id === socket.id
-    );
-    if (guess.toLowerCase() === rooms[roomId]["word"].toLowerCase()) {
-      rooms[roomId]["users"][index]["score"] += 1;
-      socket.emit("GUESS", "Correct", {
-        score: rooms[roomId]["users"][index]["score"],
-      });
+  socket.on("submit_draw", ({ roomId, drawing }) => {
+    io.to(roomId).emit("submit_draw", { drawing });
+  });
+
+  socket.on("submit_word", ({ roomId, word }) => {
+    rooms[roomId]["word"] = word;
+  });
+
+  socket.on("submit_answer", ({ roomId, answer }) => {
+    if (rooms[roomId]) {
+      if (rooms[roomId]["word"].toLowerCase() === answer.toLowerCase()) {
+        len = answer.length;
+        if (len <= 4) {
+          rooms[roomId]["score"] += 1;
+        } else if (len === 5) {
+          rooms[roomId]["score"] += 3;
+        } else {
+          rooms[roomId]["score"] += 5;
+        }
+        io.in(roomId).emit("correct", { newScore: rooms[roomId]["score"] });
+      } else {
+        io.in(roomId).emit("wrong");
+      }
     } else {
-      socket.emit("GUESS", "Wrong", {
-        score: rooms[roomId]["users"][index]["score"],
-      });
+      return;
     }
+  });
+
+  socket.on("get_words", () => {
+    socket.emit("words", {
+      easy: words.easy[Math.floor(Math.random() * words.easy.length)],
+      medium: words.medium[Math.floor(Math.random() * words.medium.length)],
+      hard: words.hard[Math.floor(Math.random() * words.hard.length)],
+    });
   });
 
   socket.on("create_room", ({ username }) => {
     let randomId = uuidv4();
-    createRoom(randomId);
+    createRoom(randomId, socket.id);
     createUser(socket.id, username, randomId);
     socket.join(randomId);
     socket.emit("created_success", { room: randomId });
@@ -104,7 +110,9 @@ io.on("connection", (socket) => {
       socket.join(roomId);
       io.in(roomId).emit("joined_success", { joinedId: roomId, username });
     } else {
-      socket.emit("fail", { msg: "Room is full" });
+      socket.emit("fail", {
+        msg: "Room is full, The game is made for 2 Players ",
+      });
     }
   });
 

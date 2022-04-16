@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Line, Text } from "react-konva";
 
-export default function Board({ linesArray }) {
-  const [lines, setLines] = useState(linesArray || []);
+export default function Board({ setDrawing }) {
+  const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
 
   const handleMouseDown = (e) => {
@@ -29,6 +29,12 @@ export default function Board({ linesArray }) {
 
   const handleMouseUp = () => {
     isDrawing.current = false;
+  };
+
+  const doneDrawing = () => {
+    const canvas = document.getElementsByTagName("canvas")[0];
+    setDrawing(canvas.toDataURL());
+    clearBoard();
   };
 
   const clearBoard = () => {
@@ -60,6 +66,7 @@ export default function Board({ linesArray }) {
       </Stage>
       <div className="tool_bar">
         <button onClick={clearBoard}>Clear</button>
+        <button onClick={doneDrawing}>Done</button>
       </div>
     </>
   );

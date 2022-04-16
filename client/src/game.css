@@ -1,20 +1,47 @@
 .game_app {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    place-items: center;
     height: 100vh;
     width:100vw;
     background-color: #2a2730
 }
 
-.drawing_area {
-    
+.waiting {
+    margin-bottom: 50vh;
+    color: rgb(227, 234, 255);
+}
 
+.guessing img {
+    border: 3px solid #0091ff;
+    margin-bottom: 5vh;
+}
+.answer {
+    margin-bottom: 2vh;
+    margin-left: 2vh;
+    background-color: transparent;
+    color: rgb(227, 234, 255);
+    padding: 3px;
+    border-radius: 2px;
+}
+
+.answer button {
+    background-color: #0091ff;
+    color: rgb(227, 234, 255);
+    border: none;
+    border-radius: 2px;
+    margin-left: 2vh;
+}
+
+.drawing_area {
+    display: grid;
+    place-items: center;
+    margin-bottom: 30vh;
+    color: rgb(227, 234, 255);
 }
 
 .drawing {
     border: 3px solid #0091ff;
+    margin-bottom: 5vh;
 }
 .game_information {
     margin-top: 2vh;
