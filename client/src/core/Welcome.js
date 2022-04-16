@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import "../app.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Welcome() {
@@ -15,7 +15,7 @@ export default function Welcome() {
   const handleStart = () => {
     if (username !== "") {
       if (roomId !== "") {
-        navigate("waiting", { state: { roomId, username, action: "join" } });
+        navigate("/waiting", { state: { roomId, username, action: "join" } });
       } else {
         navigate("/waiting", {
           state: { username, action: "create" },

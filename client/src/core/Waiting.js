@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import socket from "../util/socketConnection";
-
+import "../app.css";
 export default function Drawing() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,7 +27,11 @@ export default function Drawing() {
   };
 
   useEffect(() => {
-    socket.emit("join_or_create", { username, id: roomId, action });
+    if (action === "create") {
+      socket.emit("create_room", { username });
+    } else {
+      socket.emit("join_room", { roomId, username });
+    }
   }, []);
 
   socket.on("created_success", ({ room }) => {
@@ -35,10 +39,9 @@ export default function Drawing() {
     setSuccess(true);
   });
 
-  socket.on("joined_success", ({ joinedId }) => {
-    setRoom(joinedId);
+  socket.on("joined_success", ({ joinedId, username }) => {
     // navigate to game route
-    navigate("/game", { state: { room: joinedId, username, action } });
+    navigate("/game", { state: { roomId: joinedId } });
   });
 
   socket.on("fail", ({ joinedId, msg }) => {
