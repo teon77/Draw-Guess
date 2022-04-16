@@ -1,0 +1,44 @@
+.word_app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 80vh;
+    background-color: #2a2730;
+    color: rgb(227, 234, 255);
+}
+
+.word_choosing {
+    max-height: 25vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: larger;
+    margin-bottom: 5vh;
+}
+.explain {
+    margin-top: 0;
+}
+.explain p {
+    font-size: larger;
+}
+.word_choosing div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    background-color: #484452;
+    color: rgb(227, 234, 255);
+    border-radius: 5px;
+    width: 10vw;
+    padding: 5px;
+}
+
+.word_choosing div button {
+    padding: 5px;
+    margin-bottom: 1vh;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none
+}

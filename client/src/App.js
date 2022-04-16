@@ -1,16 +1,14 @@
-import { Drawing, Waiting, Welcome, WordChoose } from "./core";
+import Welcome from "./core/Welcome";
+import Waiting from "./core/Waiting";
 import { Route, Routes } from "react-router-dom";
-
+import Drawing from "./core/Drawing";
 function App() {
   return (
-    <>
-      <Routes>
-        <Route exact path="/" element={<Welcome />} />
-        <Route path="/waiting" element={<Waiting />} />
-        <Route path="/word_choose" element={<WordChoose />} />
-        <Route path="/game" element={<Drawing />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route exact path="/" element={<Welcome />} />
+      <Route path="/waiting" element={<Waiting />} />
+      <Route path="/game" element={<Drawing />} />
+    </Routes>
   );
 }
 
