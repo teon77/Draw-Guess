@@ -8,22 +8,23 @@ the server exposes a **React** client side. The app also uses WebSocket connecti
 Currently all the data is handled locally in the server, with the server also self handling rooms creation and deletion.
 
 
-### Front-End
+## Front-End
 =====
 
-#### Login
+### Login
+component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Welcome.js>
 
-![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/login.png "component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Welcome.js>")
+![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/login.png "login view")
 
-#### Waiting
+### Waiting
+component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Waiting.js>
+![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/waitingRoom.png "waiting view")
 
-![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/waitingRoom.png)
+### Drawing  
+component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Drawing.js>
+![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/drawingView.png "drawing view")
 
-#### Drawing  
-
-![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/drawingView.png)
-
-#### Choose a Word 
-
-![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/chooseWord.png)
+### Choose a Word 
+component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/WordChoosing.js>
+![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/chooseWord.png "choose a word view")
 
