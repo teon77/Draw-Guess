@@ -10,7 +10,6 @@ The game is available at <https://drawing-guess.herokuapp.com/>
 
 
 ## Front-End
-=====
 
 ### Login
 component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Welcome.js>
