@@ -12,7 +12,7 @@ export default function Drawing() {
   const [score, setScore] = useState();
   const [room, setRoom] = useState(0);
   const [players, setPlayers] = useState([]);
-  const [minutes, setMinutes] = useState(1);
+  const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
 
   const [turn, setTurn] = useState(false);
