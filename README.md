@@ -24,7 +24,4 @@ component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Waiti
 component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Drawing.js>
 ![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/drawingView.png "drawing view")
 
-### Choose a Word 
-component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/WordChoosing.js>
-![alt text](https://github.com/teon77/Draw-Guess/blob/main/pictures/chooseWord.png "choose a word view")
 
