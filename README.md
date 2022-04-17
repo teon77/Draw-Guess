@@ -4,7 +4,7 @@
 =====
 
 The game is built using **express** server that handles all the data about rooms, users and the gameplay.
-the server serves a **React** client side. The app also uses WebSocket connection using **socket.io** and supports multiple rooms and users.
+the server serves a **React** client app. The app also uses WebSocket connection using **socket.io** and supports multiple rooms and users.
 Currently all the data is handled locally in the server, with the server also self handling rooms creation and deletion.
 The game is available at <https://drawing-guess.herokuapp.com/>
 
