@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import socket from "../util/socketConnection";
 import "../styles/wordChoose.css";
-export default function WordChoosing({ setWord }) {
+export default function WordChoosing({ room, setWord }) {
   const [easy, setEasy] = useState("");
   const [medium, setMedium] = useState("");
   const [hard, setHard] = useState("");
 
   useEffect(() => {
-    socket.emit("get_words");
+    socket.emit("get_words", { roomId: room });
     socket.on("words", ({ easy, medium, hard }) => {
       setEasy(easy);
       setMedium(medium);

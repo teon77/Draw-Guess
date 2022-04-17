@@ -139,7 +139,7 @@ export default function Drawing() {
                 )}
               </div>
             ) : (
-              <WordChoosing setWord={setWord} />
+              <WordChoosing room={room} setWord={setWord} />
             )
           ) : (
             <div className="guessing_area">

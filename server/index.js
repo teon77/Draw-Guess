@@ -95,12 +95,14 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("get_words", () => {
-    socket.emit("words", {
-      easy: words.easy[Math.floor(Math.random() * words.easy.length)],
-      medium: words.medium[Math.floor(Math.random() * words.medium.length)],
-      hard: words.hard[Math.floor(Math.random() * words.hard.length)],
-    });
+  socket.on("get_words", ({ roomId }) => {
+    if (rooms[roomId]) {
+      io.in(roomId).emit("words", {
+        easy: words.easy[Math.floor(Math.random() * words.easy.length)],
+        medium: words.medium[Math.floor(Math.random() * words.medium.length)],
+        hard: words.hard[Math.floor(Math.random() * words.hard.length)],
+      });
+    }
   });
 
   socket.on("create_room", ({ username }) => {
