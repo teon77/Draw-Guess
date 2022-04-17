@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
+const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const { Server } = require("socket.io");
 const { words } = require("./data/words");
@@ -9,6 +10,12 @@ const port = process.env.PORT || 8181;
 
 const app = express();
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 let rooms = {};
 
