@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../app.css";
+import "../styles/app.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Welcome() {

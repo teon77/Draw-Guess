@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import socket from "../util/socketConnection";
-import "../wordChoose.css";
+import "../styles/wordChoose.css";
 export default function WordChoosing({ setWord }) {
   const [easy, setEasy] = useState("");
   const [medium, setMedium] = useState("");

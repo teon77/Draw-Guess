@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import "../game.css";
+import "../styles/game.css";
 import socket from "../util/socketConnection";
 import Board from "./Board";
 import WordChoosing from "./WordChoosing";

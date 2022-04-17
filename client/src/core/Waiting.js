@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import socket from "../util/socketConnection";
-import "../app.css";
+import "../styles/app.css";
 export default function Drawing() {
   const location = useLocation();
   const navigate = useNavigate();
