@@ -28,10 +28,10 @@ component: <https://github.com/teon77/Draw-Guess/blob/main/client/src/core/Drawi
 You can run this game locally using:
 ```
 $ git clone https://github.com/teon77/Draw-Guess.git
-cd server
-npm run start
+$ cd server
+$ npm run start
 
-cd client
-npm start
+$ cd client
+$ npm start
 
 ```
